@@ -13,6 +13,9 @@ def signup(request):
         username = request.POST['username']
         pass1 = request.POST['pass1']
         pass2 = request.POST['pass2']
+        if pass1 != pass2:
+            messages.error(request, "Passwords should be the same!")
+            return render(request, "core/signup.html")
 
         myuser = User.objects.create_user(username,'',pass1)
         

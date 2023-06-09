@@ -12,11 +12,11 @@
     <form action="/signin" method="post">
         {% csrf_token %}
         <label for="">Username</label>
-        <input type="text" id="username" name="username" placeholder="Enter your username" required="true">
+        <input type="password" id="username" name="username" placeholder="Enter your username" required="true">
         <br>
 
         <label for="">Password</label>
-        <input type="text" id="pass1" name="pass1" placeholder="Enter your password" required="true">
+        <input type="password" id="pass1" name="pass1" placeholder="Enter your password" required="true">
         <br>
 
         <button type="submit">Sign In</button>
