@@ -1,4 +1,6 @@
 from django.http import HttpResponse
+from django.shortcuts import redirect
+from django.contrib import messages
 from django.utils.deprecation import MiddlewareMixin
 
 
@@ -7,4 +9,5 @@ class ProcessRequestMiddleware(MiddlewareMixin):
         if "insights" in request.path:
             user = request.user
             if not user.is_authenticated:
-                return HttpResponse('Unauthorized', status=401)
+                messages.error(request, "Your need to log in to access this page!")
+                return redirect("home")

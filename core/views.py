@@ -1,8 +1,13 @@
+import os
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
+import requests
 from django.contrib.auth import authenticate, login, logout
+
+from round_insight.settings import TEST_API_KEY_SOCCER
+from round_insight.settings import LIVE_API_KEY_SOCCER
 
 # Create your views here.
 def home(request):
@@ -49,4 +54,10 @@ def signout(request):
     return redirect("home")
 
 def dashboard(request):
+    headersAuth = {
+        'Authorization': 'Bearer '+ str(TEST_API_KEY_SOCCER),
+    }
+
+    response = requests.get('https://api.api-futebol.com.br/v1/campeonatos', headers=headersAuth)
+    json = response.json()
     return render(request, "insights/dashboard.html")
