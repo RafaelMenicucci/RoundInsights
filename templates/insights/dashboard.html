@@ -1,5 +1,7 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +9,35 @@
 </head>
 <body>
     <h3>Logged in</h3>
+
+    <h3>{{name}}</h3>
+    <br>
+
+    <h3>{{round.name}}</h3>
+    <br>
+
+    <table>
+        {% for match in round.matches %}
+            <tr>
+                <td>{{match.matchDate}}</td>
+                <td>{{match.stadium}}</td>
+                <td>{{match.matchHour}}</td>
+            </tr>
+            <tr>
+                <td>
+                    <svg width="20" height="20">
+                        <image xlink:href="{{match.homeLogo}}" width="20" height="20"/>  
+                    </svg> {{match.homeTeam}}
+                </td>
+                <td> X </td>
+                <td>
+                    <svg width="20" height="20">
+                        <image xlink:href="{{match.awayLogo}}" width="20" height="20"/>  
+                    </svg> {{match.awayTeam}}
+                </td>
+            </tr>   
+        {% endfor %}
+    </table>
 
     <button type="submit" onclick="location.href='/signout'">Sign Out</button>
 </body>
