@@ -63,7 +63,7 @@ def dashboard(request):
     }
 
     # Getting which round is next, or the one that is happening at the moment 
-    response = requests.get(f'https://api.api-futebol.com.br/v1/campeonatos/{championship}/'.format(championship), headers=headersAuth)
+    response = requests.get(f'https://api.api-futebol.com.br/v1/campeonatos/{championship}/', headers=headersAuth)
     json = response.json()
 
     name = json['nome']

@@ -8,36 +8,40 @@
     <title>Dashboard</title>
 </head>
 <body>
-    <h3>Logged in</h3>
-
-    <h3>{{name}}</h3>
+    <h1>{{name}}</h3>
     <br>
+    
+    <div>
+        
+    </div>
 
-    <h3>{{round.name}}</h3>
-    <br>
+    <div class="matches">
+        <h3>{{round.name}}</h3>
+        <br>
 
-    <table>
-        {% for match in round.matches %}
-            <tr>
-                <td>{{match.matchDate}}</td>
-                <td>{{match.stadium}}</td>
-                <td>{{match.matchHour}}</td>
-            </tr>
-            <tr>
-                <td>
-                    <svg width="20" height="20">
-                        <image xlink:href="{{match.homeLogo}}" width="20" height="20"/>  
-                    </svg> {{match.homeTeam}}
-                </td>
-                <td> X </td>
-                <td>
-                    <svg width="20" height="20">
-                        <image xlink:href="{{match.awayLogo}}" width="20" height="20"/>  
-                    </svg> {{match.awayTeam}}
-                </td>
-            </tr>   
-        {% endfor %}
-    </table>
+        <table>
+            {% for match in round.matches %}
+                <tr class="matchInfos">
+                    <td>{{match.matchDate}}</td>
+                    <td>{{match.stadium}}</td>
+                    <td>{{match.matchHour}}</td>
+                </tr>
+                <tr class="matchResults">
+                    <td>
+                        <svg width="40" height="40">
+                            <image xlink:href="{{match.homeLogo}}" width="40" height="40"/>  
+                        </svg> 
+                    </td>
+                    <td> X </td>
+                    <td>
+                        <svg width="40" height="40">
+                            <image xlink:href="{{match.awayLogo}}" width="40" height="40"/>  
+                        </svg> 
+                    </td>
+                </tr>   
+            {% endfor %}
+        </table>
+    </div>
 
     <button type="submit" onclick="location.href='/signout'">Sign Out</button>
 </body>
