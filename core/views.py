@@ -6,6 +6,7 @@ from django.contrib import messages
 import requests
 from django.contrib.auth import authenticate, login, logout
 from core.classes.round import Round
+from django.core.cache import cache
 
 from round_insight.settings import TEST_API_KEY_SOCCER
 from round_insight.settings import LIVE_API_KEY_SOCCER
@@ -63,15 +64,23 @@ def dashboard(request):
     }
 
     # Getting which round is next, or the one that is happening at the moment 
-    response = requests.get(f'https://api.api-futebol.com.br/v1/campeonatos/{championship}/', headers=headersAuth)
-    json = response.json()
+    if cache.get("championship") is None:
+        response = requests.get(f'https://api.api-futebol.com.br/v1/campeonatos/{championship}/', headers=headersAuth)
+        json = response.json()
+        cache.add("championship", json)
+    else:
+        json = cache.get("championship")
 
     name = json['nome']
     roundNumber = json['rodada_atual']['rodada']
     
     # Getting informations from the current round
-    response = requests.get(f'https://api.api-futebol.com.br/v1/campeonatos/{championship}/rodadas/{roundNumber}', headers=headersAuth)
-    json = response.json()
+    if cache.get(f"round{roundNumber}") is None:
+        response = requests.get(f'https://api.api-futebol.com.br/v1/campeonatos/{championship}/rodadas/{roundNumber}', headers=headersAuth)
+        json = response.json()
+        cache.add(f"round{roundNumber}", json)
+    else:
+        json = cache.get(f"round{roundNumber}")
 
     round = Round(json['nome'],json['rodada'],json['proxima_rodada']['rodada'],json['rodada_anterior']['rodada'],json['partidas'])
 
