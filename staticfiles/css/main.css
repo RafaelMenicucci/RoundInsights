@@ -1,0 +1,26 @@
+table {
+    text-align: center;
+    vertical-align: middle;
+    border-collapse: collapse;
+}
+
+tr.matchInfos {
+    border-top: 1px solid black;
+}
+
+tr.matchResults {
+    border-bottom: 1px solid black;
+}
+
+td {
+    padding-bottom: .5em
+}
+
+div.matches {
+    margin-left: 60%;
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+}
