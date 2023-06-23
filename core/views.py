@@ -67,7 +67,7 @@ def dashboard(request):
     if cache.get("championship") is None:
         response = requests.get(f'https://api.api-futebol.com.br/v1/campeonatos/{championship}/', headers=headersAuth)
         json = response.json()
-        cache.add("championship", json)
+        cache.add("championship", json,86400)
     else:
         json = cache.get("championship")
 
@@ -78,7 +78,7 @@ def dashboard(request):
     if cache.get(f"round{roundNumber}") is None:
         response = requests.get(f'https://api.api-futebol.com.br/v1/campeonatos/{championship}/rodadas/{roundNumber}', headers=headersAuth)
         json = response.json()
-        cache.add(f"round{roundNumber}", json)
+        cache.add(f"round{roundNumber}", json,86400)
     else:
         json = cache.get(f"round{roundNumber}")
 
