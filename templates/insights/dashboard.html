@@ -11,36 +11,84 @@
     <h1>{{name}}</h3>
     <br>
     
-    <div>
-        
-    </div>
-
-    <div class="matches">
-        <h3>{{round.name}}</h3>
-        <br>
-
-        <table>
-            {% for match in round.matches %}
-                <tr class="matchInfos">
-                    <td>{{match.matchDate}}</td>
-                    <td>{{match.stadium}}</td>
-                    <td>{{match.matchHour}}</td>
+    <div class="content">
+        <div class="championshipDiv">
+            <table class="championshipTable">
+                <tr>
+                    <th></th>
+                    <th>Team</th>
+                    <th>P</th>
+                    <th>G</th>
+                    <th>W</th>
+                    <th>L</th>
+                    <th>D</th>
+                    <th>+</th>
+                    <th>-</th>
+                    <th>+/-</th>
+                    <th>%</th>
+                    <th>Last Games</th>
                 </tr>
-                <tr class="matchResults">
-                    <td>
-                        <svg width="40" height="40">
-                            <image xlink:href="{{match.homeLogo}}" width="40" height="40"/>  
-                        </svg> 
-                    </td>
-                    <td> X </td>
-                    <td>
-                        <svg width="40" height="40">
-                            <image xlink:href="{{match.awayLogo}}" width="40" height="40"/>  
-                        </svg> 
-                    </td>
-                </tr>   
-            {% endfor %}
-        </table>
+                {% for team in table %}
+                    <tr class="teamsRow">
+                        <td>{{team.position}}</td>
+                        <td>{{team.name}}</td>
+                        <td>{{team.points}}</td>
+                        <td>{{team.games}}</td>
+                        <td>{{team.wins}}</td>
+                        <td>{{team.loses}}</td>
+                        <td>{{team.draws}}</td>
+                        <td>{{team.scoresGiven}}</td>
+                        <td>{{team.scoresTaken}}</td>
+                        <td>{{team.scores}}</td>
+                        <td>{{team.percentage}}</td>
+                        <td>{{team.lastGames}}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+        <div class="matches">
+            <div class="matchesHeader">
+                <button class="previousRound"><</button>
+                <h3>{{round.name}}</h3>
+                <button class="nextRound">></button>
+            </div>
+
+            <table class="tableMatches">
+                {% for match in round.matches %}
+                    <tr class="matchInfos">
+                        <td>{{match.matchDate}}</td>
+                        <td></td>
+                        <td>{{match.stadium}}</td>
+                        <td></td>
+                        <td>{{match.matchHour}}</td>
+                    </tr>
+                    <tr class="matchResults">
+                        <td>
+                            <svg width="40" height="40">
+                                <image xlink:href="{{match.homeLogo}}" width="40" height="40"/>  
+                            </svg> 
+                        </td>
+                        <td>
+                            {% if match.homeScore is not None %}
+                                <h2>{{match.homeScore}}</h2>
+                            {% endif %}
+                        </td>
+                        <td> <h2>X</h2> </td>
+                        <td>
+                            {% if match.homeScore is not None %}
+                                <h2>{{match.awayScore}}</h2>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <svg width="40" height="40">
+                                <image xlink:href="{{match.awayLogo}}" width="40" height="40"/>  
+                            </svg> 
+                        </td>
+                    </tr>   
+                {% endfor %}
+            </table>
+        </div>
     </div>
 
     <button type="submit" onclick="location.href='/signout'">Sign Out</button>

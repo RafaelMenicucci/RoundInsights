@@ -6,6 +6,7 @@ from django.contrib import messages
 import requests
 from django.contrib.auth import authenticate, login, logout
 from core.classes.round import Round
+from core.classes.table import Table
 from django.core.cache import cache
 
 from round_insight.settings import TEST_API_KEY_SOCCER
@@ -63,6 +64,19 @@ def dashboard(request):
         'Authorization': 'Bearer '+ str(LIVE_API_KEY_SOCCER),
     }
 
+    # Getting informations from table
+    if cache.get("table") is None:
+        response = requests.get(f'https://api.api-futebol.com.br/v1/campeonatos/{championship}/tabela', headers=headersAuth)
+        json = response.json()
+        cache.add("table", json,86400)
+    else:
+        json = cache.get("table")
+    
+    table = []
+    for teams in json:
+        table.append(Table(teams['posicao'],teams['pontos'],teams['time']['nome_popular'],teams['jogos'],teams['vitorias'],teams['empates'],teams['derrotas'],teams['gols_pro'],
+                  teams['gols_contra'],teams['saldo_gols'],teams['aproveitamento'],teams['ultimos_jogos']))
+
     # Getting which round is next, or the one that is happening at the moment 
     if cache.get("championship") is None:
         response = requests.get(f'https://api.api-futebol.com.br/v1/campeonatos/{championship}/', headers=headersAuth)
@@ -88,5 +102,6 @@ def dashboard(request):
             'name': name,
             'roundNumber': roundNumber,
             'round': round,
+            'table': table,
             }
     return render(request, "insights/dashboard.html", context)

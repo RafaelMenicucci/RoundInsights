@@ -1,4 +1,4 @@
-table {
+table.tableMatches {
     text-align: center;
     vertical-align: middle;
     border-collapse: collapse;
@@ -13,14 +13,59 @@ tr.matchResults {
 }
 
 td {
-    padding-bottom: .5em
+    padding-bottom: .5em;
+    padding-right: 10px;
+}
+
+tr.teamsRow {
+    line-height: 1.8em;
+}
+
+table.championshipTable {
+    text-align: center;
+    vertical-align: middle;
 }
 
 div.matches {
-    margin-left: 60%;
+    margin-left: 20%;
     text-align: center;
+}
+
+div.championshipDiv {
+    margin-left: 15%;
+}
+
+div.content {
+    display:flex;
 }
 
 h1 {
     text-align: center;
+}
+
+div.matchesHeader {
+    margin-right: 10%;
+    display: inline-flex;
+}
+
+button.previousRound {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    font-size: 2em;
+    padding-right: 100px;
+}
+
+button.nextRound {
+    background-color: transparent;
+    background-repeat: no-repeat;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    font-size: 2em;
+    padding-left: 100px;
 }
