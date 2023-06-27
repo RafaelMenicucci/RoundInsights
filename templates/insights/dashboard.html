@@ -40,8 +40,18 @@
                         <td>{{team.scoresGiven}}</td>
                         <td>{{team.scoresTaken}}</td>
                         <td>{{team.scores}}</td>
-                        <td>{{team.percentage}}</td>
-                        <td>{{team.lastGames}}</td>
+                        <td>{{team.percentage}}%</td>
+                        <td>
+                            {% for lastGame in team.lastGames %}
+                                {% if lastGame == 'v' %}
+                                    <span class="dotGreen"></span>
+                                {% elif lastGame == 'd' %}
+                                    <span class="dotRed"></span>
+                                {% else %}
+                                    <span class="dotGrey"></span>
+                                {% endif %}
+                            {% endfor %}
+                        </td>
                     </tr>
                 {% endfor %}
             </table>
