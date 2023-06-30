@@ -18,4 +18,4 @@ class Round():
                                         match['placar_visitante'],
                                         match['data_realizacao'],
                                         match['hora_realizacao'],
-                                        match['estadio']['nome_popular']))
+                                        match['estadio']['nome_popular'] if match['estadio'] is not None else ""))

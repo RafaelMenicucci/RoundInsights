@@ -1,0 +1,71 @@
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 200px;
+    margin-top: 5%;
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 200px;
+    box-shadow:
+			inset 2px 2px 4px gray,
+			inset -2px -2px 4px gray;
+    border-radius: 8px;
+}
+
+.signin {
+    display: block;
+    justify-self: end;
+    align-self: center;
+    text-align: center;
+}
+
+.signup {
+    display: block;
+    justify-self: start;
+    align-self: center;
+    text-align: center;
+}
+
+p {
+    font-size: xx-large;
+    font-weight: bold;
+}
+
+input {
+    width: 250px;
+    height: 40px;
+    margin: 4px 0;
+
+    padding-left: 25px;
+    font-size: 13px;
+    letter-spacing: .15px;
+    border: none;
+    outline: none;
+
+    font-family: 'Montserrat', sans-serif;
+    transition: .25s ease;
+    border-radius: 8px;
+
+    box-shadow:
+        inset 2px 2px 4px gray,
+        inset -2px -2px 4px white;
+}
+
+button {
+    width: 180px;
+    height: 50px;
+    border-radius: 25px;
+    margin-top: 50px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1.15px;
+
+	background-color: #4B70E2;
+	color: white;
+	box-shadow:
+		8px 8px 16px #d1d9e6,
+		-8px -8px 16px white;
+
+	border: none;
+    outline: none;
+}

@@ -7,12 +7,13 @@ import requests
 from django.contrib.auth import authenticate, login, logout
 from core.classes.round import Round
 from core.classes.table import Table
+from core.services.tableService import tableService
+from core.services.roundService import roundService
 from django.core.cache import cache
 
 from round_insight.settings import TEST_API_KEY_SOCCER
 from round_insight.settings import LIVE_API_KEY_SOCCER
 
-# Create your views here.
 def home(request):
     return render(request, "core/index.html")
 
@@ -47,56 +48,40 @@ def signin(request):
             return redirect("insights/dashboard")
         else:
             messages.error(request, "Bad credentials!")
-            return redirect("home")
+            return redirect("signin")
 
     return render(request, "core/signin.html")
 
 def signout(request):
     logout(request)
     messages.success(request, "Logged out successfully!")
-    return redirect("home")
+    return redirect("signin")
 
 def dashboard(request):
-    # Campeonato Brasileiro
-    championship = 10
+    if request.POST.get("round") is not None:
+        table = tableService.getTable()
 
-    headersAuth = {
-        'Authorization': 'Bearer '+ str(LIVE_API_KEY_SOCCER),
-    }
+        name = request.POST.get("name")
+        roundNumber = request.POST.get("round")
 
-    # Getting informations from table
-    if cache.get("table") is None:
-        response = requests.get(f'https://api.api-futebol.com.br/v1/campeonatos/{championship}/tabela', headers=headersAuth)
-        json = response.json()
-        cache.add("table", json,86400)
-    else:
-        json = cache.get("table")
+        round = roundService.getRound(roundNumber)
+
+        context= {
+                'name': name,
+                'roundNumber': roundNumber,
+                'round': round,
+                'table': table,
+                }
+        return render(request, "insights/dashboard.html", context)
     
-    table = []
-    for teams in json:
-        table.append(Table(teams['posicao'],teams['pontos'],teams['time']['nome_popular'],teams['jogos'],teams['vitorias'],teams['empates'],teams['derrotas'],teams['gols_pro'],
-                  teams['gols_contra'],teams['saldo_gols'],teams['aproveitamento'],teams['ultimos_jogos']))
+    table = tableService.getTable()
 
-    # Getting which round is next, or the one that is happening at the moment 
-    if cache.get("championship") is None:
-        response = requests.get(f'https://api.api-futebol.com.br/v1/campeonatos/{championship}/', headers=headersAuth)
-        json = response.json()
-        cache.add("championship", json,86400)
-    else:
-        json = cache.get("championship")
+    json = roundService.getJsonRound()
 
     name = json['nome']
     roundNumber = json['rodada_atual']['rodada']
-    
-    # Getting informations from the current round
-    if cache.get(f"round{roundNumber}") is None:
-        response = requests.get(f'https://api.api-futebol.com.br/v1/campeonatos/{championship}/rodadas/{roundNumber}', headers=headersAuth)
-        json = response.json()
-        cache.add(f"round{roundNumber}", json,86400)
-    else:
-        json = cache.get(f"round{roundNumber}")
 
-    round = Round(json['nome'],json['rodada'],json['proxima_rodada']['rodada'],json['rodada_anterior']['rodada'],json['partidas'])
+    round = roundService.getRound(roundNumber)
 
     context= {
             'name': name,

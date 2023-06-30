@@ -1,26 +1,29 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+    <link rel="stylesheet" href="{% static 'css/signin.css' %}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title>Round Insight</title>
 </head>
 <body>
+    <div class="container">
+        <div class="child">
+            <p>Sign in</p>
+            
+            <form action="/signin" method="post">
+                {% csrf_token %}
+                <input type="text" id="username" name="username" placeholder="Enter your username" required="true">
+                <br>
     
-    <h3>Sign in</h3>
+                <input type="password" id="pass1" name="pass1" placeholder="Enter your password" required="true">
+                <br>
     
-    <form action="/signin" method="post">
-        {% csrf_token %}
-        <label for="">Username</label>
-        <input type="text" id="username" name="username" placeholder="Enter your username" required="true">
-        <br>
-
-        <label for="">Password</label>
-        <input type="password" id="pass1" name="pass1" placeholder="Enter your password" required="true">
-        <br>
-
-        <button type="submit">Sign In</button>
-    </form>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
+    </div>
 
 </body>
 </html>

@@ -59,9 +59,21 @@
 
         <div class="matches">
             <div class="matchesHeader">
-                <button class="previousRound"><</button>
+                <form enctype='multipart-form-data' action="/insights/dashboard" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="round" value="{{round.previousRound}}" />
+                    <input type="hidden" name="name" value="{{name}}" />
+                    <input type="hidden" name="table" value="{{table}}" />
+                    <button type="submit" class="previousRound"><</button>
+                </form>
                 <h3>{{round.name}}</h3>
-                <button class="nextRound">></button>
+                <form action="/insights/dashboard" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="round" value="{{round.nextRound}}" />
+                    <input type="hidden" name="name" value="{{name}}" />
+                    <input type="hidden" name="table" value="{{table}}" />
+                    <button class="nextRound">></button>
+                </form>
             </div>
 
             <table class="tableMatches">
