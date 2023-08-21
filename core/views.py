@@ -1,18 +1,9 @@
-import os
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
-import requests
 from django.contrib.auth import authenticate, login, logout
-from core.classes.round import Round
-from core.classes.table import Table
 from core.services.tableService import tableService
 from core.services.roundService import roundService
-from django.core.cache import cache
-
-from round_insight.settings import TEST_API_KEY_SOCCER
-from round_insight.settings import LIVE_API_KEY_SOCCER
 
 def home(request):
     return render(request, "core/index.html")
