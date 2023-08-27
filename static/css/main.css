@@ -1,21 +1,9 @@
-table.tableMatches {
-    text-align: center;
-    vertical-align: middle;
-    border-collapse: collapse;
-}
-
 table.championshipTable {
     text-align: center;
     vertical-align: middle;
+    width:750px; 
+    max-width:750px;
     border-collapse: collapse;
-}
-
-tr.matchInfos {
-    border-top: 1px solid black;
-}
-
-tr.matchResults {
-    border-bottom: 1px solid black;
 }
 
 tr.teamsRow {
@@ -56,20 +44,53 @@ td {
 }
 
 div.matches {
-    margin-left: 20%;
+    display: grid;
+    margin-left: 50px;
+    grid-template-columns: repeat(2, 2fr);
+    gap: 10px;
+    padding: 10px;
+}
+
+.matches :first-child {
+    grid-column: 1 / -1;
+    display: inline-flex;
+}
+
+div.matchesContainer {
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    font-size: 20px;
     text-align: center;
+    box-shadow:
+			inset 2px 2px 8px gray,
+			inset -2px -2px 8px gray;
+}
+
+div.matchesHeader {
+    margin: auto;
+}
+
+div.matchInfos {
+    display: inline-flex;
+}
+
+div.matchResults {
+    text-align: center;
+    display: inline-flex;
+    column-gap: 20px;
+    justify-content: space-between;
+}
+
+div.teamLogo {
+    margin: auto;
 }
 
 div.championshipDiv {
-    margin-left: 10%;
+    margin-left: 3%;
 }
 
 div.content {
     display:flex;
-}
-
-div.matchesHeader {
-    display: inline-flex;
 }
 
 h1 {
@@ -82,9 +103,8 @@ button.previousRound {
     border: none;
     cursor: pointer;
     overflow: hidden;
-    outline: none;
     font-size: 2em;
-    padding-right: 100px;
+    margin-right: 100px;
 }
 
 button.nextRound {
@@ -95,7 +115,11 @@ button.nextRound {
     overflow: hidden;
     outline: none;
     font-size: 2em;
-    padding-left: 100px;
+    margin-left: 100px;
+}
+
+form.nextRoundForm {
+    display: inline-flex;
 }
 
 span.dotGreen {

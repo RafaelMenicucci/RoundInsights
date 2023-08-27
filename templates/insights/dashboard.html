@@ -43,9 +43,9 @@
                         <td>{{team.percentage}}%</td>
                         <td>
                             {% for lastGame in team.lastGames %}
-                                {% if lastGame == 'v' %}
+                                {% if lastGame == 'W' %}
                                     <span class="dotGreen"></span>
-                                {% elif lastGame == 'd' %}
+                                {% elif lastGame == 'L' %}
                                     <span class="dotRed"></span>
                                 {% else %}
                                     <span class="dotGrey"></span>
@@ -61,55 +61,57 @@
             <div class="matchesHeader">
                 <form enctype='multipart-form-data' action="/insights/dashboard" method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="round" value="{{round.previousRound}}" />
+                    <input type="hidden" name="round" value="{{roundNumber}}" />
                     <input type="hidden" name="name" value="{{name}}" />
                     <input type="hidden" name="table" value="{{table}}" />
+                    <input type="hidden" name="previous" value="true" />
                     <button type="submit" class="previousRound"><</button>
                 </form>
                 <h3>{{round.name}}</h3>
-                <form action="/insights/dashboard" method="post">
+                <form class="nextRoundForm" enctype='multipart-form-data' action="/insights/dashboard" method="post">
                     {% csrf_token %}
-                    <input type="hidden" name="round" value="{{round.nextRound}}" />
+                    <input type="hidden" name="round" value="{{roundNumber}}" />
                     <input type="hidden" name="name" value="{{name}}" />
                     <input type="hidden" name="table" value="{{table}}" />
-                    <button class="nextRound">></button>
+                    <input type="hidden" name="next" value="true" />
+                    <button type="submit" class="nextRound">></button>
                 </form>
             </div>
 
-            <table class="tableMatches">
-                {% for match in round.matches %}
-                    <tr class="matchInfos">
-                        <td>{{match.matchDate}}</td>
-                        <td></td>
-                        <td>{{match.stadium}}</td>
-                        <td></td>
-                        <td>{{match.matchHour}}</td>
-                    </tr>
-                    <tr class="matchResults">
-                        <td>
+            {% for match in round.matches %}
+                <div class="matchesContainer">
+                    <div class="matchInfos">
+                        <div>{{match.matchDate}}</div>
+                        <div>{{match.stadium}}</div>
+                        <div>{{match.matchHour}}</div>
+                    </div>
+                    <div class="matchResults">
+                        <div class="teamLogo">
                             <svg width="40" height="40">
                                 <image xlink:href="{{match.homeLogo}}" width="40" height="40"/>  
                             </svg> 
-                        </td>
-                        <td>
+                        </div>
+                        <div>
                             {% if match.homeScore is not None %}
                                 <h2>{{match.homeScore}}</h2>
                             {% endif %}
-                        </td>
-                        <td> <h2>X</h2> </td>
-                        <td>
+                        </div>
+                        <div>
+                            <h2>X</h2>
+                        </div>
+                        <div>
                             {% if match.homeScore is not None %}
                                 <h2>{{match.awayScore}}</h2>
                             {% endif %}
-                        </td>
-                        <td>
+                        </div>
+                        <div class="teamLogo">
                             <svg width="40" height="40">
                                 <image xlink:href="{{match.awayLogo}}" width="40" height="40"/>  
-                            </svg> 
-                        </td>
-                    </tr>   
-                {% endfor %}
-            </table>
+                            </svg>
+                        </div>
+                    </div>
+                </div>  
+            {% endfor %}
         </div>
     </div>
 

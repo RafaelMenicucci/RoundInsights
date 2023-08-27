@@ -54,8 +54,13 @@ def dashboard(request):
 
         name = request.POST.get("name")
         roundNumber = request.POST.get("round")
+        
+        if(request.POST.get("previous")) :
+            roundNumber = str(int(roundNumber)-1)
+        else :
+            roundNumber = str(int(roundNumber)+1)
 
-        round = roundService.getRound(roundNumber)
+        round = roundService.getRound(f'Regular Season - {roundNumber}')
 
         context= {
                 'name': name,
@@ -69,10 +74,10 @@ def dashboard(request):
 
     json = roundService.getJsonRound()
 
-    name = json['nome']
-    roundNumber = json['rodada_atual']['rodada']
+    name = "Campeonato Brasileiro"
+    roundNumber = json['response'][0].split(" - ",1)[1]
 
-    round = roundService.getRound(roundNumber)
+    round = roundService.getRound(json['response'][0])
 
     context= {
             'name': name,
