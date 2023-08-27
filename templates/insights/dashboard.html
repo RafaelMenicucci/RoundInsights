@@ -63,7 +63,6 @@
                     {% csrf_token %}
                     <input type="hidden" name="round" value="{{roundNumber}}" />
                     <input type="hidden" name="name" value="{{name}}" />
-                    <input type="hidden" name="table" value="{{table}}" />
                     <input type="hidden" name="previous" value="true" />
                     <button type="submit" class="previousRound"><</button>
                 </form>
@@ -72,7 +71,6 @@
                     {% csrf_token %}
                     <input type="hidden" name="round" value="{{roundNumber}}" />
                     <input type="hidden" name="name" value="{{name}}" />
-                    <input type="hidden" name="table" value="{{table}}" />
                     <input type="hidden" name="next" value="true" />
                     <button type="submit" class="nextRound">></button>
                 </form>
@@ -116,5 +114,13 @@
     </div>
 
     <button type="submit" onclick="location.href='/signout'">Sign Out</button>
+
+    <form enctype='multipart-form-data' action="/insights/dashboard" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="name" value="{{name}}" />
+        <input type="hidden" name="round" value="{{roundNumber}}" />
+        <input type="hidden" name="clearCache" value="true" />
+        <button type="submit">Refresh matches</button>
+    </form>
 </body>
 </html>

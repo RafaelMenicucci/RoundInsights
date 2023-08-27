@@ -49,6 +49,28 @@ def signout(request):
     return redirect("signin")
 
 def dashboard(request):
+    if request.POST.get("clearCache") is not None:
+        roundService.clearCache(request.POST.get("round"))
+        tableService.clearCache()
+
+        table = tableService.getTable()
+
+        name = request.POST.get("name")
+        roundNumber = request.POST.get("round")
+
+        json = roundService.getJsonRound()
+        roundNumber = json['response'][0].split(" - ",1)[1]
+
+        round = roundService.getRound(f'Regular Season - {roundNumber}')
+
+        context= {
+                'name': name,
+                'roundNumber': roundNumber,
+                'round': round,
+                'table': table,
+                }
+        return render(request, "insights/dashboard.html", context)
+
     if request.POST.get("round") is not None:
         table = tableService.getTable()
 

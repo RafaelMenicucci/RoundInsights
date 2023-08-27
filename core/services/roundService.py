@@ -44,3 +44,6 @@ class roundService():
         round = Round(roundNumber, json['response'])
 
         return round
+    
+    def clearCache(roundNumber):
+        cache.delete(f"round{roundNumber}")

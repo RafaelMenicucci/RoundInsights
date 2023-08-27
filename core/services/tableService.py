@@ -36,3 +36,6 @@ class tableService():
                     teams['all']['goals']['against'], teams['goalsDiff'], f'{pointsPercentage:.2f}', teams['form']))
             
         return table
+    
+    def clearCache():
+        cache.delete("table")
