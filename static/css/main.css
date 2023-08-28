@@ -93,6 +93,10 @@ div.content {
     display:flex;
 }
 
+div.buttons {
+    display: flex;
+}
+
 h1 {
     text-align: center;
 }
@@ -116,6 +120,45 @@ button.nextRound {
     outline: none;
     font-size: 2em;
     margin-left: 100px;
+}
+
+button.refreshMatchs {
+    width: 180px;
+    height: 50px;
+    border-radius: 25px;
+    margin-top: 20px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1.15px;
+    margin-left: 400%;
+
+	background-color: #4B70E2;
+	color: white;
+	box-shadow:
+		8px 8px 16px #d1d9e6,
+		-8px -8px 16px white;
+
+	border: none;
+    outline: none;
+}
+
+button.signOut {
+    width: 180px;
+    height: 50px;
+    border-radius: 25px;
+    margin-top: 20px;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1.15px;
+
+	background-color: #4B70E2;
+	color: white;
+	box-shadow:
+		8px 8px 16px #d1d9e6,
+		-8px -8px 16px white;
+
+	border: none;
+    outline: none;
 }
 
 form.nextRoundForm {
