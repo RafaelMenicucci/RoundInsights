@@ -50,17 +50,17 @@ def signout(request):
 
 def dashboard(request):
     if request.POST.get("clearCache") is not None:
-        roundService.clearCache(request.POST.get("round"))
+        
         tableService.clearCache()
 
         table = tableService.getTable()
 
         name = request.POST.get("name")
-        roundNumber = request.POST.get("round")
 
         json = roundService.getJsonRound()
         roundNumber = json['response'][0].split(" - ",1)[1]
-
+        
+        roundService.clearCache(roundNumber)
         round = roundService.getRound(f'Regular Season - {roundNumber}')
 
         context= {
